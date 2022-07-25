@@ -7,7 +7,8 @@ router.get('/sch', schController.getAllSch);
 router.post('/sch', schController.uploadImg, schController.newSch);
 router.delete('/sch', schController.deleteAllSch);
 
-router.get('/Sch/:name', schController.getOneSch);
-router.delete('/Sch/:name', schController.deleteOneSch);
+router.get('/Sch/:id', schController.getOneSch);
+router.delete('/Sch/:id', schController.deleteOneSch);
+router.put('/Sch/:id',schController.updateOneSch);
 
 module.exports = router;

@@ -69,12 +69,47 @@ const deleteAllSch = (req, res, next) => {
     })
 };
 
-//GET '/Sch/:name'
+
+//Update '/Sch/:id'
+const updateOneSch = (req, res, next) =>{
+    Sch.findByIdAndUpdate(req.params.id,
+        {
+            name:req.body.name,
+            category:req.body.category,
+            image: req.path, // placeholder for now
+            link:req.body.link,
+            description:req.body.description,
+            launchdate:req.body.launchdate,
+            enddate:req.body.enddate,
+        },
+        { new: true }
+      )
+        .then((data) => {
+          if (!data) {
+            return res.status(404).send({
+              message: "Message not found with id " + req.params.id,
+            });
+          }
+          res.send(data);
+        })
+        .catch((err) => {
+          if (err.kind === "ObjectId") {
+            return res.status(404).send({
+              message: "Message not found with id " + req.params.id,
+            });
+          }
+          return res.status(500).send({
+            message: "Error updating message with id " + req.params.id,
+          });
+        });
+}
+
+
+//GET '/Sch/:id'
 const getOneSch = (req, res, next) => {
-    let name = req.params.name; //get the Sch name
 
     //find the specific tea with that name
-    Sch.findOne({name:name}, (err, data) => {
+    Sch.findById((req.params.id), (err, data) => {
     if(err || !data) {
         return res.json({message: "Scheme doesn't exist."});
     }
@@ -83,11 +118,11 @@ const getOneSch = (req, res, next) => {
 };
 
 
-//DELETE '/Sch/:name'
+//DELETE '/Sch/:id'
 const deleteOneSch = (req, res, next) => {
-    let name = req.params.name; // get the name of tea to delete
+   // let id = req.params.id; // get the name of tea to delete
 
-    Sch.deleteOne({name:name}, (err, data) => {
+    Sch.findByIdAndDelete((req.params.id), (err, data) => {
     //if there's nothing to delete return a message
     if( data.deletedCount == 0) return res.json({message: "Scheme doesn't exist."});
     //else if there's an error, return the err message
@@ -103,6 +138,7 @@ module.exports = {
     uploadImg,
     newSch,
     deleteAllSch,
+    updateOneSch,
     getOneSch,
     deleteOneSch
 };
