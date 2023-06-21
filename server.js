@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 
 require('dotenv').config();
-app.use(express.json()); // parses incoming requests with JSON payloads
+app.use(express.json()); // parses incoming requests with JSON payloads.
 
 app.use('/', routes); //to use the routes
 app.use('/uploads', express.static('./uploads'));

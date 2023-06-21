@@ -53,7 +53,7 @@ const newSch = (req, res, next) => {
         //if there's an error or the Sch is in db, return a message         
         }else{
             if(err) return res.json(`Something went wrong, please try again. ${err}`);
-            return res.json({message:"Sch already exists"});
+            return res.json({message:"It already exists"});
         }
     })    
 };

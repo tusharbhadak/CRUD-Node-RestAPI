@@ -11,5 +11,5 @@ const SchSchema = new mongoose.Schema({
     enddate: {type:String, required:true}
 });
 
-const Sch = mongoose.model('Sch', SchSchema); //convert to model named Sch
+const Sch = mongoose.model('Sch', SchSchema); //convert to model named Sch.
 module.exports = Sch; //export for controller use
